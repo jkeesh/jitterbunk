@@ -1,6 +1,20 @@
 # Django settings for jitterbunk project.
+import getpass
+import os
+import sys
 
-DEBUG = True
+# setup python path for this instance
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, PROJECT_ROOT)
+
+local_users = ["eric", "jkeesh", "zgalant", 'laney']
+if getpass.getuser() in local_users:
+    DEBUG = True
+    DEV = True
+else:
+    DEBUG = True
+    DEV = False
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -11,8 +25,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'bunkdb',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -81,6 +95,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'bunks/templates'),
 )
 
 INSTALLED_APPS = (
@@ -91,4 +106,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
+    'jitterbunk.bunks',
 )
+
+if DEV:
+    FACEBOOK_API_KEY = '139763809448265'
+    FACEBOOK_SECRET_KEY = '67fe1736ef9d3db5f67342981de733eb'
+else:
+    FACEBOOK_API_KEY = '203842356342689'
+    FACEBOOK_SECRET_KEY = 'e406bcb6d5eae2f53f4f1b33db522503'
