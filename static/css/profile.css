@@ -9,3 +9,19 @@
     padding:10px;
     width:300px;
 }
+
+.profile-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.user-name {
+    font-size:18px;
+    text-align:center;
+}
+
+.user-counts {
+    font-size:14px;
+    text-align:center;
+}
