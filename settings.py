@@ -12,7 +12,7 @@ if getpass.getuser() in local_users:
     DEBUG = True
     DEV = True
 else:
-    DEBUG = True
+    DEBUG = False
     DEV = False
 
 STATIC_URL = '/static/'
