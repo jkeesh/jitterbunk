@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 )
 
 # Jitterbunk URL's
-urlpatterns += patterns('jitterbunk.bunks.views',
+urlpatterns += patterns('bunks.views',
     (r'^/?$', 'login'),
     (r'^index/?$', 'index'),
 )
