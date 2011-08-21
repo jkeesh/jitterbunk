@@ -2,6 +2,8 @@ import facebook
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.conf import settings
+
 
 def _create_user_profile(request):
     """
