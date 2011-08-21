@@ -6,6 +6,7 @@ from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from bunks.models import Bunk
 
 def _create_user_profile(cookie):
     """
@@ -61,7 +62,7 @@ def index(request):
         "index.html", 
         {
             "user":request.user,
-            "bunks":[1,2,3],
+            "all_bunks":Bunk.objects.all().order_by('-created_at'),
         },
         context_instance = RequestContext(request)
     )
