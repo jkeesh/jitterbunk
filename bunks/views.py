@@ -29,6 +29,7 @@ def index(request):
     return render_to_response(
         "index.html", 
         {
+            "user":request.user,
             "bunks":[1,2,3],
         },
         context_instance = RequestContext(request)
