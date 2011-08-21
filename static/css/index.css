@@ -4,7 +4,8 @@
 }
 
 #search-wrapper {
-    margin:25px 0px 50px 0px;
+    margin:25px auto 50px 0px;
+    width:900px;
 }
 
 #search-input {
@@ -16,6 +17,7 @@
 .feed-bunk {
     margin:10px 0px 10px 0px;
     border-bottom:1px solid #ccc;
+    width:700px;
 }
 
 .bunk-image {
@@ -37,3 +39,6 @@ a.feed-name:hover {
     text-decoration:underline;
 }
 
+#feed-wrapper {
+    margin:0px auto;
+}
