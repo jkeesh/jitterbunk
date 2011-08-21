@@ -39,8 +39,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
             'NAME': 'jitterbunk',                      # Or path to database file if using sqlite3.
-            'USER': secrets.LOCAL['db_user'],                      # Not used with sqlite3.
-            'PASSWORD': secrets.LOCAL['db_passwd'],                  # Not used with sqlite3.
+            'USER': secrets.PROD['db_user'],                      # Not used with sqlite3.
+            'PASSWORD': secrets.PROD['db_passwd'],                  # Not used with sqlite3.
             'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
             'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         }
@@ -119,7 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'bunks',
     'django_extensions',              # django extensions
 )
