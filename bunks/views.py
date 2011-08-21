@@ -1,13 +1,7 @@
-# 3rd party libs
 import facebook
-
-# Django utils
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
 from django.template import RequestContext
-
-# Settings and local imports
-from django.conf import settings
+from django.shortcuts import render_to_response
 
 def _create_user_profile(request):
     """
@@ -68,3 +62,13 @@ def index(request):
         context_instance = RequestContext(request)
     )
 
+def profile(request, id):
+    """
+    Display someone's profile page to the user.
+    """
+    return render_to_response("profile.html", {
+        "viewer": request.user,
+        "id": id,
+        },
+        context_instance=RequestContext(request)
+    )
