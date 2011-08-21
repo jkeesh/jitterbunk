@@ -1,11 +1,11 @@
 import facebook
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login as django_login, authenticate
 from bunks.models import Bunk
 
 def _create_user_profile(cookie):
@@ -36,15 +36,19 @@ def login(request):
     cookie = facebook.get_user_from_cookie(request.COOKIES,
                         settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
     if cookie:
-        print cookie
         try:
             up = UserProfile.objects.get(fbid=cookie['uid'])
             user = up.user
         except UserProfile.DoesNotExist:
             user = _create_user_profile(cookie)
             
-        user = authenticate(username=user.username)
-    
+        user = authenticate(username=user.username, password=user.username)
+        if user is not None:
+            django_login(request, user)
+            return HttpResponseRedirect("/")
+        else:
+            print "user was none"
+            
     return render_to_response(
         "login.html",
         {
@@ -58,6 +62,10 @@ def index(request):
     """
     The main view for the site.
     """
+    if request.user.is_authenticated():
+        print request.user
+        print request.user.get_profile().fbid
+    
     return render_to_response(
         "index.html", 
         {
