@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Jitterbunk</title>
+		<script type="text/javascript" src="/static/js/all.js"></script>
+
+		{% block javascripts %}
+		{% endblock %}
+
+		<link type="text/css" href="/static/css/reset.css" rel="stylesheet"/>
+		{% block stylesheets %}
+		{% endblock %}
+	</head>
+	<body>
+		<div id="content">
+
+			{# these two should be used for two column displays #}
+			{% block content %}
+			{% endblock %}
+
+			{% block right-column %}
+			{% endblock %}
+
+		</div>
+		<div id="footer">
+			Jitterbunk
+		</div>
+	</body>
+</html>
