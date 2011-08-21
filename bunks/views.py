@@ -4,6 +4,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
 from bunks.models import UserProfile
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 from bunks.models import Bunk
 from django.contrib.auth.models import User
 
@@ -24,7 +26,7 @@ def _create_user_profile(cookie):
         user.last_name = profile['last_name']
         user.save()
     
-    up = UserProfile(user=user, fbid=cookie['uid'], access_token=cookie['access_token'])
+    up = UserProfile(user=user, fbid=cookie['uid'])
     up.save()
     return user
 
@@ -35,13 +37,14 @@ def login(request):
     cookie = facebook.get_user_from_cookie(request.COOKIES,
                         settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
     if cookie:
+        print cookie
         try:
             up = UserProfile.objects.get(fbid=cookie['uid'])
             user = up.user
         except UserProfile.DoesNotExist:
-            user = _create_use_profile(cookie)
+            user = _create_user_profile(cookie)
             
-        user = authenticate(username=user.username, )
+        user = authenticate(username=user.username)
     
     return render_to_response(
         "login.html",
