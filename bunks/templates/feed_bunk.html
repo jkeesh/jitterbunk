@@ -1,9 +1,10 @@
-<div>
+<div class="feed-bunk">
 	<div class="left"><a><img class="bunk-image" src="http://graph.facebook.com/{{b.bunker.get_profile.fbid}}/picture?type=square" /></a></div>
-	<div class="left">
-		<span><a href="/profile/{{b.bunker.id}}">{{b.bunker}}</a></span>
+	<div class="left feed-bunk-content">
+		<span><a  class="feed-name" href="/profile/{{b.bunker.id}}">{{b.bunker}}</a></span>
 		<span> bunked </span>
-		<span><a href="/profile/{{b.bunkee.id}}">{{b.bunkee}}</a></span>
+		<span><a  class="feed-name" href="/profile/{{b.bunkee.id}}">{{b.bunkee}}</a></span>
+		<span> at {{b.created_at}} </span>
 	</div>
 	<div class="clear"></div>
 </div>

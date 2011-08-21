@@ -5,9 +5,34 @@
 
 #search-wrapper {
     margin:25px auto;
+    margin-bottom:50px;
 }
 
 #search-input {
     width:400px;
     font-size:18px;
+}
+
+.feed-bunk {
+    margin:10px 0px 10px 0px;
+    border-bottom:1px solid #ccc;
+}
+
+.bunk-image {
+    width:72px;
+    height:72px;
+}
+
+.feed-bunk-content {
+    margin:20px 0px 0px 20px;
+    font:30px helvetica;
+}
+
+a.feed-name {
+    color:#888;
+    text-decoration:none;
+}
+
+a.feed-name:hover {
+    text-decoration:underline;
 }

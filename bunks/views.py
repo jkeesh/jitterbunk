@@ -68,12 +68,26 @@ def index(request):
     if request.user.is_authenticated():
         print request.user
         print request.user.get_profile().fbid
+        
+    all_bunks = Bunk.objects.all().order_by('-created_at')
+    all_bunks = (
+        {
+            "bunker":"bunker",
+            "bunkee":"bunkee",
+            
+        },
+        {
+            "bunker":"bunker",
+            "bunkee":"bunkee",
+            
+        },
+    )
     
     return render_to_response(
         "index.html", 
         {
             "user":request.user,
-            "all_bunks":Bunk.objects.all().order_by('-created_at'),
+            "all_bunks":all_bunks,
         },
         context_instance = RequestContext(request)
     )
