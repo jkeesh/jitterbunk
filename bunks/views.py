@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from bunks.models import UserProfile
 from bunks.models import Bunk
+from django.contrib.auth.models import User
 
 def _create_user_profile(cookie):
     """
@@ -74,3 +75,16 @@ def profile(request, id):
         },
         context_instance=RequestContext(request)
     )
+
+
+
+def user_search(request):
+    name = request.GET['q']
+    
+    the_user = User.objects.filter(first_name=name)
+    
+    obj = {'the_user':the_user, 'pid':4}
+    return HttpResponse(simplejson.dumps(obj), mimetype="application/x-javascript")
+    
+    
+    
