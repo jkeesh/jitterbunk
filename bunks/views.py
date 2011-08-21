@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
-
+from bunks.models import UserProfile
 from bunks.models import Bunk
 
-def _create_user_profile(request):
+def _create_user_profile(cookie):
     """
     Create the user account and profile.
     """
@@ -23,8 +23,9 @@ def _create_user_profile(request):
         user.last_name = profile['last_name']
         user.save()
     
-    up = UserProfile(user=user, id=cookie['uid'], access_token=cookie['access_token'])
+    up = UserProfile(user=user, fbid=cookie['uid'], access_token=cookie['access_token'])
     up.save()
+    return user
 
 def login(request):
     """
@@ -34,14 +35,12 @@ def login(request):
                         settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
     if cookie:
         try:
-            up = UserProfile.objects.get(id=cookie['uid'])
-
-            print up.access_token
-
+            up = UserProfile.objects.get(fbid=cookie['uid'])
             user = up.user
         except UserProfile.DoesNotExist:
-            pass
+            user = _create_use_profile(cookie)
             
+        user = authenticate(username=user.username, )
     
     return render_to_response(
         "login.html",
