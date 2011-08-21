@@ -43,6 +43,7 @@ def login(request):
 
             user = up.user
         except UserProfile.DoesNotExist:
+            pass
             
     
     return render_to_response(
