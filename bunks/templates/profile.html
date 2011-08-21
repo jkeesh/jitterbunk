@@ -9,7 +9,13 @@
 
 {% block content %}
 <div id="header-wrapper">
-    {{id}}
+    <img class="profile-image" src="http://graph.facebook.com/{{user.fbid}}/picture?type=square" />
+    <div class="user-name">
+        {{user.first_name}} {{user.last_name}}
+    </div>
+    <div class="user-counts">
+        {{bunks_sent_count}} Bunks Sent, {{bunks_received_count}} Bunks Received 
+    </div>
 </div>
 
 <div id="left-col-wrapper">

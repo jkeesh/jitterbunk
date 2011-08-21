@@ -96,17 +96,20 @@ def profile(request, id):
     """
     Display someone's profile page to the user.
     """
-    person = User.objects.get(pk=id)
+    user = User.objects.get(pk=id)
     viewer = request.user
 
-    user_profile = person.get_profile();
+    user_profile = user.get_profile();
     bunks_sent = user_profile.get_bunks(Bunk.SENT);
     bunks_received = user_profile.get_bunks(Bunk.RECEIVED);
 
     return render_to_response("profile.html", {
         "viewer": request.user,
-        "id": id,
-        "all_bunks": bunks_sent,
+        "user": user,
+        "bunks_sent": bunks_sent,
+        "bunks_received": bunks_received,
+        "bunks_sent_count": len(bunks_sent),
+        "bunks_received_count": len(bunks_received),
         },
         context_instance=RequestContext(request)
     )
