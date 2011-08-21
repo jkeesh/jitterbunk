@@ -92,6 +92,7 @@ def profile(request, id):
     return render_to_response("profile.html", {
         "viewer": request.user,
         "id": id,
+        "all_bunks": bunks_sent,
         },
         context_instance=RequestContext(request)
     )
