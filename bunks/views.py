@@ -5,7 +5,9 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import login as django_login, authenticate
+from django.contrib.auth import login as django_login
+from django.contrib.auth import authenticate
+
 from bunks.models import Bunk
 from django.contrib.auth.models import User
 
@@ -36,7 +38,7 @@ def login(request):
     """
     cookie = facebook.get_user_from_cookie(request.COOKIES,
                         settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
-    if cookie:
+    if cookie and not request.user.is_authenticated():
         try:
             up = UserProfile.objects.get(fbid=cookie['uid'])
             user = up.user
@@ -46,6 +48,7 @@ def login(request):
         user = authenticate(username=user.username, password=user.username)
         if user is not None:
             django_login(request, user)
+            return HttpResponseRedirect("/")
         else:
             print "user was none"
             
