@@ -13,15 +13,19 @@ from django.db.models import Q
 
 from bunks.models import Bunk
 
+def json_response(obj):
+    """
+    Helper method to turn a python object into json format and return an HttpResponse object.
+    """
+    return HttpResponse(simplejson.dumps(obj), mimetype="application/x-javascript")
+
 
 def create_bunk(request):
-    print request
-    
-    result = "hello!"
-    
-    json = simplejson.dumps(result)
-    return HttpResponse(json, mimetype="application/x-javascript")
-    
+    bunkee = request.POST['bunkee']
+    bunkee_user = User.objects.get(pk=bunkee)
+    bunk = Bunk(bunker=request.user, bunkee=bunkee_user)
+    bunk.save()
+    return json_response({"status": "ok"})
     
 
 def _create_user_profile(cookie):
