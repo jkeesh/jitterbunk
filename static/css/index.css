@@ -4,10 +4,41 @@
 }
 
 #search-wrapper {
-    margin:25px auto;
+    margin:25px auto 50px 0px;
+    width:900px;
 }
 
 #search-input {
     width:400px;
     font-size:18px;
+    padding:5px;
+}
+
+.feed-bunk {
+    margin:10px 0px 10px 0px;
+    border-bottom:1px solid #ccc;
+    width:700px;
+}
+
+.bunk-image {
+    width:72px;
+    height:72px;
+}
+
+.feed-bunk-content {
+    margin:20px 0px 0px 20px;
+    font:30px helvetica;
+}
+
+a.feed-name {
+    color:#888;
+    text-decoration:none;
+}
+
+a.feed-name:hover {
+    text-decoration:underline;
+}
+
+#feed-wrapper {
+    margin:0px auto;
 }
