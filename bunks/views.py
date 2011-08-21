@@ -2,6 +2,7 @@ import facebook
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from bunks.models import Bunk
 
 def _create_user_profile(request):
     """
@@ -57,7 +58,7 @@ def index(request):
         "index.html", 
         {
             "user":request.user,
-            "bunks":[1,2,3],
+            "all_bunks":Bunk.objects.all().order_by('-created_at'),
         },
         context_instance = RequestContext(request)
     )
