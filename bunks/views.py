@@ -13,6 +13,17 @@ from django.db.models import Q
 
 from bunks.models import Bunk
 
+
+def create_bunk(request):
+    print request
+    
+    result = "hello!"
+    
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype="application/x-javascript")
+    
+    
+
 def _create_user_profile(cookie):
     """
     Create the user account and profile.

@@ -1,21 +1,13 @@
 {% extends "base.html" %}
 
-{% block javascripts %}
-<script type="text/javascript" src="/static/js/index.js"></script>
-{% endblock %}
-
-{% block stylesheets %}
-<link type="text/css" href="/static/css/index.css" rel="stylesheet"/>
-{% endblock %}
-
 {% block content %}
 <div id="top-image-container">
 	<img id="top-image" src="/static/images/logo.png" />
 </div>
 
 <div id="search-wrapper">
-	<input type="text" id="search-input" placeholder="Search for a friend to bunk" class="ui-autocomplete-input" autocomplete="off" role="textbox" />
-	<a href="#">Bunk!</a>
+	<input type="text" id="search-input" placeholder="Search for a friend to bunk" />
+	<a href="#" id="bunk-button">Bunk!</a>
 </div>
 
 <div id="feed-wrapper">

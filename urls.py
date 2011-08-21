@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('bunks.views',
     (r'^profile/(?P<id>\d+)?$', 'profile'), 
     (r'^ajax/user_search', 'user_search'),
+    (r'^ajax/bunk', 'create_bunk'),
     (r'^/?$', 'index'),
 )
 

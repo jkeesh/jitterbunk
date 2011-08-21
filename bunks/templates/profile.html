@@ -1,12 +1,5 @@
 {% extends "base.html" %}
 
-{% block javascripts %}
-{% endblock %}
-
-{% block stylesheets %}
-<link type="text/css" href="/static/css/profile.css" rel="stylesheet"/>
-{% endblock %}
-
 {% block content %}
 <div id="header-wrapper">
     <img class="profile-image" src="http://graph.facebook.com/{{user.get_profile.fbid}}/picture?type=normal" />
