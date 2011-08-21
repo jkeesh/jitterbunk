@@ -1,10 +1,24 @@
 {% extends "base.html" %}
 
 {% block javascripts %}
+
 {% endblock %}
 
 {% block stylesheets %}
 {% endblock %}
 
 {% block content %}
+Login Page!
+<fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
+
+<script type="text/javascript">
+  window.fbAsyncInit = function() {
+    FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
+             xfbml: true});
+    FB.Event.subscribe('{% if request.user.is_authenticated %}auth.logout{% else %}auth.login{% endif %}', function(response) {
+      window.location.reload();
+    });
+  };
+</script>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 {% endblock %}
