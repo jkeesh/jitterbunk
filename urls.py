@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
+import os
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -21,3 +23,10 @@ urlpatterns = patterns('',
 urlpatterns += patterns('jitterbunk.bunks.views',
     (r'^/?$', 'index'),
 )
+
+# static content served only in debug
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        (r'^(?P<path>.*)$', 'django.views.static.serve',
+         {'document_root': settings.PROJECT_ROOT}),
+    )

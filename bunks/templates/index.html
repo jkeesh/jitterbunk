@@ -7,4 +7,20 @@
 {% endblock %}
 
 {% block content %}
+<div>
+	<img id="top-image" src="/static/images/logo.png" />
+</div>
+
+<div>
+	<form id="search-form">
+		<input type="text" id="search-input" placeholder="Search for a friend..." class="ui-autocomplete-input" autocomplete="off" role="textbox" />
+	</form>
+</div>
+
+<div id="feed-wrapper">
+	<div class="title">Recent Bunks</div>
+	<div id="feed">
+		{% include "feed.html" %}
+	</div>
+</div>
 {% endblock %}
