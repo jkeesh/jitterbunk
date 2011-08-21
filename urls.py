@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
+import os
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -27,5 +28,5 @@ urlpatterns += patterns('jitterbunk.bunks.views',
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': os.path.dirname(settings.PROJECT_ROOT)}),
+         {'document_root': settings.PROJECT_ROOT}),
     )

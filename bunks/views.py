@@ -14,13 +14,13 @@ def index(request):
     The main view for the site.
     @author Eric Conner
     """
-    if not request.user.is_authenticated():
-        return render_to_response(
-            "login.html",
-            {
-                "facebook_app_id": settings.FACEBOOK_API_KEY
-            },
-            context_instance = RequestContext(request)
-        )
+    # if not request.user.is_authenticated():
+    #     return render_to_response(
+    #         "login.html",
+    #         {
+    #             "facebook_app_id": settings.FACEBOOK_API_KEY
+    #         },
+    #         context_instance = RequestContext(request)
+    #     )
     
     return render_to_response("index.html")
