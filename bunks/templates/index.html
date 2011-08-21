@@ -3,7 +3,10 @@
 {% block content %}
 <div id="top-image-container">
 	<img id="top-image" src="/static/images/logo.png" />
-	<a href="/about" id="about-link">about</a>
+	<div id="top-links">
+		<a href="/profile/{{user.id}}" id="name-link">{{user.first_name|lower}}</a>
+		<a href="/about" id="about-link">about</a>
+	</div>
 </div>
 
 <div id="search-wrapper">
