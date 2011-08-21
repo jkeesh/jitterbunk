@@ -1,6 +1,14 @@
 # Django settings for jitterbunk project.
+import getpass
 
-DEBUG = True
+local_users = ["eric", "jkeesh", "zgalant", 'laney']
+if getpass.getuser() in local_users:
+    DEBUG = True
+    DEV = True
+else:
+    DEBUG = True
+    DEV = False
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
