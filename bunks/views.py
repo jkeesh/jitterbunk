@@ -45,7 +45,6 @@ def login(request):
         user = authenticate(username=user.username, password=user.username)
         if user is not None:
             django_login(request, user)
-            return HttpResponseRedirect("/")
         else:
             print "user was none"
             
