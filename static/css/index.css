@@ -1,8 +1,18 @@
-#top-image-container {
+#content {
     width:900px;
+    margin:0px auto;
 }
 
 #top-image {
-    margin:0px auto;
     width:900px;
+    margin-top:20px;
+}
+
+#search-wrapper {
+    margin:25px auto;
+}
+
+#search-input {
+    width:400px;
+    font-size:18px;
 }
