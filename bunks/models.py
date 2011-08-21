@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     friends = models.ManyToManyField("self")
     
     def bunk(self, other):
-        bunk = Bunk(bunker=self, bunkee=other)
+        bunk = Bunk(bunker=self.user, bunkee=other)
         bunk.save()
         
     def get_friends(self):
@@ -29,16 +29,16 @@ class UserProfile(models.Model):
         
     def get_bunks(self, filter=Bunk.ALL):
         if filter == Bunk.ALL:
-            sent = Bunk.objects.filter(bunker=self)
-            received = Bunk.objects.filter(bunkee=self)
+            sent = Bunk.objects.filter(bunker=self.user)
+            received = Bunk.objects.filter(bunkee=self.user)
             return chain(sent, received)
         elif filter == Bunk.SENT:
-            return Bunk.objects.filter(bunker=self)
+            return Bunk.objects.filter(bunker=self.user)
         elif filter == Bunk.RECEIVED:
-            return Bunk.objects.filter(bunkee=self)
+            return Bunk.objects.filter(bunkee=self.user)
     
     def unseen_count(self):
-        return len(Bunk.objects.filter(bunkee=self, seen=False))
+        return len(Bunk.objects.filter(bunkee=self.user, seen=False))
     
     
     def __unicode__(self):

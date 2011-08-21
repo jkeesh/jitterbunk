@@ -16,7 +16,7 @@ else:
     DEV = False
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/jitterbunk.com/static'
+STATIC_ROOT = '/var/www/jitterbunk.com/static/'
 STATICFILES_DIRS = (
     PROJECT_ROOT + "/static/",
 )
