@@ -15,14 +15,18 @@
 <div id="left-col-wrapper">
     <div class="title">Bunked</div>
     <div id="bunked-list">
+            {% with bunks_sent as all_bunks %}
             {% include "feed.html" %}
+            {% endwith %}
     </div>
 </div>
 
 <div id="right-col-wrapper">
     <div class="title">Bunked By</div>
     <div id="bunked-by-list">
+            {% with bunks_received as all_bunks %}
             {% include "feed.html" %}
+            {% endwith %}
     </div>
 </div>
 
