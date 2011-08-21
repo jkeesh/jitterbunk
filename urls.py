@@ -20,7 +20,6 @@ urlpatterns = patterns('',
 
 # Jitterbunk URL's
 urlpatterns += patterns('bunks.views',
-    (r'^login/?$', 'login'),
     (r'^profile/(?P<id>\d+)?$', 'profile'), 
     (r'^ajax/user_search', 'user_search'),
     (r'^/?$', 'index'),

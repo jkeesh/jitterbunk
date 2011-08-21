@@ -32,7 +32,7 @@ def _create_user_profile(cookie):
     up.save()
     return user
 
-def login(request):
+def bunk_login(request):
     """
     Display a login page to the user.
     """
@@ -68,20 +68,10 @@ def index(request):
     if request.user.is_authenticated():
         print request.user
         print request.user.get_profile().fbid
+    else:
+        return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')
-    all_bunks = (
-        {
-            "bunker":"bunker",
-            "bunkee":"bunkee",
-            
-        },
-        {
-            "bunker":"bunker",
-            "bunkee":"bunkee",
-            
-        },
-    )
     
     return render_to_response(
         "index.html", 
