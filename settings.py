@@ -100,3 +100,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
+
+if DEV:
+    FACEBOOK_API_KEY = '139763809448265'
+    FACEBOOK_SECRET_KEY = '67fe1736ef9d3db5f67342981de733eb'
+else:
+    FACEBOOK_API_KEY = '203842356342689'
+    FACEBOOK_SECRET_KEY = 'e406bcb6d5eae2f53f4f1b33db522503'
