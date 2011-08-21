@@ -2,6 +2,7 @@
 import getpass
 import os
 import sys
+import secrets
 
 # setup python path for this instance
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -38,8 +39,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
             'NAME': 'jitterbunk',                      # Or path to database file if using sqlite3.
-            'USER': 'bunk_user',                      # Not used with sqlite3.
-            'PASSWORD': 'RntLfm8',                  # Not used with sqlite3.
+            'USER': secrets.LOCAL['db_user'],                      # Not used with sqlite3.
+            'PASSWORD': secrets.LOCAL['db_passwd'],                  # Not used with sqlite3.
             'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
             'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         }
@@ -124,8 +125,8 @@ INSTALLED_APPS = (
 )
 
 if DEV:
-    FACEBOOK_API_KEY = '139763809448265'
-    FACEBOOK_SECRET_KEY = '67fe1736ef9d3db5f67342981de733eb'
+    FACEBOOK_API_KEY = secrets.LOCAL['api_key']
+    FACEBOOK_SECRET_KEY = secrets.LOCAL['secret']
 else:
-    FACEBOOK_API_KEY = '203842356342689'
-    FACEBOOK_SECRET_KEY = 'e406bcb6d5eae2f53f4f1b33db522503'
+    FACEBOOK_API_KEY = secrets.PROD['api_key']
+    FACEBOOK_SECRET_KEY = secrets.PROD['secret']

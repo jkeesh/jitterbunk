@@ -15,7 +15,9 @@ Login Page!
   window.fbAsyncInit = function() {
     FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
              xfbml: true});
-
+    FB.Event.subscribe('{% if request.user.is_authenticated %}auth.logout{% else %}auth.login{% endif %}', function(response) {
+      window.location.reload();
+    });
   };
   (function() {
     var e = document.createElement('script');
