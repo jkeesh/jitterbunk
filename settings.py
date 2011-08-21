@@ -15,7 +15,14 @@ else:
     DEBUG = True
     DEV = False
 
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/jitterbunk.com/static'
+STATICFILES_DIRS = (
+    PROJECT_ROOT + "/static/",
+)
+
 TEMPLATE_DEBUG = DEBUG
+
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -118,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'bunks',
