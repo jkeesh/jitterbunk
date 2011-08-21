@@ -6,8 +6,6 @@ import sys
 # setup python path for this instance
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
-print sys.path
-
 local_users = ["eric", "jkeesh", "zgalant", 'laney']
 if getpass.getuser() in local_users:
     DEBUG = True
@@ -122,6 +120,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     'bunks',
+    'django_extensions',              # django extensions
 )
 
 if DEV:

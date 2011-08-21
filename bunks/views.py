@@ -1,9 +1,11 @@
 import facebook
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.conf import settings
 from bunks.models import UserProfile
+from django.contrib.auth.models import User
+from django.contrib.auth import login as django_login, authenticate
 from bunks.models import Bunk
 from django.contrib.auth.models import User
 
@@ -24,7 +26,7 @@ def _create_user_profile(cookie):
         user.last_name = profile['last_name']
         user.save()
     
-    up = UserProfile(user=user, fbid=cookie['uid'], access_token=cookie['access_token'])
+    up = UserProfile(user=user, fbid=cookie['uid'])
     up.save()
     return user
 
@@ -39,10 +41,15 @@ def login(request):
             up = UserProfile.objects.get(fbid=cookie['uid'])
             user = up.user
         except UserProfile.DoesNotExist:
-            user = _create_use_profile(cookie)
+            user = _create_user_profile(cookie)
             
-        user = authenticate(username=user.username, )
-    
+        user = authenticate(username=user.username, password=user.username)
+        if user is not None:
+            django_login(request, user)
+            return HttpResponseRedirect("/")
+        else:
+            print "user was none"
+            
     return render_to_response(
         "login.html",
         {
@@ -56,6 +63,10 @@ def index(request):
     """
     The main view for the site.
     """
+    if request.user.is_authenticated():
+        print request.user
+        print request.user.get_profile().fbid
+    
     return render_to_response(
         "index.html", 
         {
@@ -69,6 +80,13 @@ def profile(request, id):
     """
     Display someone's profile page to the user.
     """
+    person = User.objects.get(pk=id)
+    viewer = request.user
+
+    user_profile = person.get_profile();
+    bunks_sent = user_profile.get_bunks(Bunk.SENT);
+    bunks_received = user_profile.get_bunks(Bunk.RECEIVED);
+
     return render_to_response("profile.html", {
         "viewer": request.user,
         "id": id,
