@@ -10,8 +10,8 @@
 {% block content %}
 Login Page!
 <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
-
-<script type="text/javascript">
+<div id="fb-root"></div>
+<script>
   window.fbAsyncInit = function() {
     FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
              xfbml: true});
@@ -19,6 +19,12 @@ Login Page!
       window.location.reload();
     });
   };
+  (function() {
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+    e.async = true;
+    document.getElementById('fb-root').appendChild(e);
+  }());
 </script>
-<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
 {% endblock %}

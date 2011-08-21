@@ -1,5 +1,9 @@
 <div>
 	<div class="left"><a><img class="bunk-image" src="{{bunk.image}}" /></a></div>
-	{{bunk}}
+	<div>
+		<span><a href="/user/{{bunk.bunker.id}}">{{bunk.bunker}}</a></span>
+		<span> bunked </span>
+		<span><a href="/user/{{bunk.bunkee.id}}">{{bunk.bunkee}}</a></span>
+	</div>
 	<div class="clear"></div>
 </div>
