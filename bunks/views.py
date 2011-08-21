@@ -7,6 +7,7 @@ from bunks.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login, authenticate
 from bunks.models import Bunk
+from django.contrib.auth.models import User
 
 def _create_user_profile(cookie):
     """
@@ -78,6 +79,13 @@ def profile(request, id):
     """
     Display someone's profile page to the user.
     """
+    person = User.objects.get(pk=id)
+    viewer = request.user
+
+    user_profile = person.get_profile();
+    bunks_sent = user_profile.get_bunks(Bunk.SENT);
+    bunks_received = user_profile.get_bunks(Bunk.RECEIVED);
+
     return render_to_response("profile.html", {
         "viewer": request.user,
         "id": id,
