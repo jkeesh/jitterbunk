@@ -1,0 +1,17 @@
+#content {
+    width:900px;
+    margin: 0px auto;
+}
+
+.clearfix {
+    display: inline-block;
+    clear: both;
+}
+ 
+html[xmlns] .clearfix {
+    display: block;
+}
+ 
+* html .clearfix {
+    height: 1%;
+}
