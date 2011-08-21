@@ -100,11 +100,26 @@ def profile(request, id):
 def user_search(request):
     name = request.GET['q']
     
-    the_users = UserProfile.objects.all()
-
-    obj = {'the_user':name, 'pid':4}
+    users = User.objects.all()
     
-    return HttpResponse(simplejson.dumps(obj), mimetype="application/x-javascript")
+    result = []
+    for user in users:
+        try:
+            profile = user.get_profile()
+            result.append(
+                {
+                    "name": "%s %s" % (user.first_name, user.last_name),
+                    "url": "/profile/%d" % user.id,
+                    "image": "https://graph.facebook.com/%s/picture?type=square" % profile.fbid,
+                    "pk":user.id,
+                 }
+            )
+        except UserProfile.DoesNotExist:
+            print "User %s either a superuser or doesn't exist" % user.id
+    
+    
+    json = simplejson.dumps(result)
+    return HttpResponse(json, mimetype="application/x-javascript")
     
     
     
