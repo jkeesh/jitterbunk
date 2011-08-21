@@ -1,8 +1,8 @@
-#top-image {
-    margin:auto;
+#top-image-container {
     width:900px;
 }
 
-.left {
-    float:left;
+#top-image {
+    margin:0px auto;
+    width:900px;
 }

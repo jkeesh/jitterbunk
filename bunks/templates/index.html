@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block stylesheets %}
+<link type="text/css" href="/static/css/index.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
-
-<div>
+<div id="top-image-container">
 	<img id="top-image" src="/static/images/logo.png" />
 </div>
 
@@ -24,6 +24,4 @@
 		{% include "feed.html" %}
 	</div>
 </div>
-
-
 {% endblock %}
