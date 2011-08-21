@@ -23,6 +23,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('bunks.views',
     (r'^/?$', 'login'),
     (r'^index/?$', 'index'),
+    (r'^ajax/user_search', 'user_search'),
 )
 
 # static content served only in debug
