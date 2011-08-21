@@ -38,13 +38,13 @@ $(document).ready(function() {
             },
             select: function(event, ui) {
                 //D.log(ui.item);
-                $(input_box).val("");
-                event.preventDefault();
-                window.location = ui.item.url;
+                // $(input_box).val("");
+                // event.preventDefault();
+                // window.location = ui.item.url;
                 // prevents search box from being updated with the tag value..
             },
             focus: function(event, ui) {
-              event.preventDefault();  
+              // event.preventDefault();  
             },
         }).data("users_catcomplete")._renderItem = function(ul, user) {
             return $("<li></li>")

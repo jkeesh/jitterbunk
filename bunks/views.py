@@ -8,6 +8,8 @@ from bunks.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login
 from django.contrib.auth import authenticate
+from django.db.models import Q
+
 
 from bunks.models import Bunk
 
@@ -108,9 +110,11 @@ def profile(request, id):
 
 def user_search(request):
     name = request.GET['q']
-    
-    users = User.objects.all()
-    
+    parts = name.split(' ')
+    if len(parts) == 2:
+        users =  User.objects.filter(first_name__iexact=parts[0], last_name__istartswith=parts[1])
+    users = User.objects.filter(Q(first_name__istartswith=parts[0]) | Q(last_name__istartswith=parts[0]) )    
+
     result = []
     for user in users:
         try:
