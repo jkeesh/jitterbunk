@@ -21,8 +21,9 @@ class UserProfile(models.Model):
     friends = models.ManyToManyField("self")
     
     def bunk(self, other):
-        bunk = Bunk(bunker=self.user, bunkee=other)
-        bunk.save()
+        if self != other:
+            bunk = Bunk(bunker=self.user, bunkee=other)
+            bunk.save()
         
     def get_friends(self):
         return self.friends.all()
