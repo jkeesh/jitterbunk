@@ -1,33 +1,48 @@
 #left-col-wrapper {
     float:left;
-    padding:10px;
     width:400px;
 }
 
 #right-col-wrapper {
     float:right;
-    padding:10px;
     width:400px;
 }
 
 .profile-image {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    float: left;
+    padding: 0 10px 10px 0;
 }
 
 .user-name {
     font-size:18px;
-    text-align:center;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .user-counts {
     font-size:14px;
-    text-align:center;
+}
+
+.user-counts .count{
+    width: 20px;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 2px;
 }
 
 
 #left-col-wrapper .feed-bunk-content,
 #right-col-wrapper .feed-bunk-content{
-    width: 250px;
+    width: 270px;
+}
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#header-wrapper{
+    margin-top: 10px;
 }

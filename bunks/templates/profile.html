@@ -7,9 +7,12 @@
         {{user.first_name}} {{user.last_name}}
     </div>
     <div class="user-counts">
-        {{bunks_sent_count}} Bunks Sent<br /> {{bunks_received_count}} Bunks Received 
+        <span class='count'>{{bunks_sent_count}}</span> Bunks Sent
+		<br /> 
+		<span class='count'>{{bunks_received_count}}</span> Bunks Received 
     </div>
 </div>
+<div class="clear"></div>
 
 <div id="left-col-wrapper">
     <div class="title">Bunked</div>

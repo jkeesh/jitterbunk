@@ -13,6 +13,14 @@ from django.db.models import Q
 
 from bunks.models import Bunk
 
+def about(request):
+    return render_to_response(
+        "about.html",
+        {},
+        context_instance = RequestContext(request)
+    )
+    
+
 def json_response(obj):
     """
     Helper method to turn a python object into json format and return an HttpResponse object.
