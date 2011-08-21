@@ -74,8 +74,6 @@ def bunk_login(request):
         if user is not None:
             django_login(request, user)
             return HttpResponseRedirect("/")
-        else:
-            print "user was none"
             
     return render_to_response(
         "login.html",
@@ -91,8 +89,7 @@ def index(request):
     The main view for the site.
     """
     if request.user.is_authenticated():
-        print request.user
-        print request.user.get_profile().fbid
+        pass
     else:
         return bunk_login(request)
         
