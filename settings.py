@@ -5,7 +5,8 @@ import sys
 
 # setup python path for this instance
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, PROJECT_ROOT)
+
+print sys.path
 
 local_users = ["eric", "jkeesh", "zgalant", 'laney']
 if getpass.getuser() in local_users:
@@ -85,6 +86,8 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'bs@&f$8x-p82d+$83@=v0anct@1vz0=r9rb2(elmvhy-c(ljkm'
+
+AUTH_PROFILE_MODULE = 'bunks.userprofile'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (

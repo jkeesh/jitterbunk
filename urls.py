@@ -16,14 +16,14 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
-   
-    (r'^profile/(?P<id>\d+)?$', 'bunks.views.profile'), 
 )
 
 # Jitterbunk URL's
 urlpatterns += patterns('bunks.views',
-    (r'^/?$', 'login'),
-    (r'^index/?$', 'index'),
+    (r'^login/?$', 'login'),
+    (r'^/?$', 'index'),
+    (r'^profile/(?P<id>\d+)?$', 'profile'), 
+    (r'^ajax/user_search', 'user_search'),
 )
 
 # static content served only in debug
