@@ -26,7 +26,7 @@ class Bunk(models.Model):
     RECEIVED    =   2
         
     def __unicode__(self):
-        return "%s bunked %s at %s" % (bunker, bunkee, created_at)
+        return "%s bunked %s at %s" % (self.bunker, self.bunkee, self.created_at)
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
