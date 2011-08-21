@@ -1,5 +1,11 @@
 # Django settings for jitterbunk project.
 import getpass
+import os
+import sys
+
+# setup python path for this instance
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, PROJECT_ROOT)
 
 local_users = ["eric", "jkeesh", "zgalant", 'laney']
 if getpass.getuser() in local_users:
