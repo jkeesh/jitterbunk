@@ -1,6 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class UserMethods:
+    """
+    This class adds some additional convenience methods onto the User
+    class.
+    """
+    def name(self):
+        """
+        Get the users full name
+        """
+        return self.first_name + " " + self.last_name
+        
+User.__bases__ += (UserMethods,)
+
 class Bunk(models.Model):
     bunker = models.ForeignKey(User, related_name="bunks_sent")
     bunkee = models.ForeignKey(User, related_name="bunks_received")

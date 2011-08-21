@@ -37,6 +37,7 @@ $(document).ready(function() {
     });
     
     var bunkee_id = null;
+    var bunkee_name = null;
     
     var input_box = $("#search-input");
     
@@ -69,6 +70,7 @@ $(document).ready(function() {
             D.log(ui);
             $(input_box).val(ui.item.name);
             bunkee_id = ui.item.pk;
+            bunkee_name = ui.item.name;
             return false;
         }
     }).data("users_catcomplete")._renderItem = function(ul, user) {
@@ -91,7 +93,17 @@ $(document).ready(function() {
             data: {
                 bunkee: bunkee_id
             },
+            dataType: 'JSON',
             success: function(result){
+                if(result.status == 'ok'){
+                    alert('Great! You bunked ' + bunkee_name);
+                    $(input_box).val('');
+                    window.location.reload();
+                    
+                }
+            }, 
+            error: function(result){
+                D.log("Fail");
                 D.log(result);
             }
         });

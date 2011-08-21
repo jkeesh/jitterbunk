@@ -1,13 +1,13 @@
 #left-col-wrapper {
     float:left;
     padding:10px;
-    width:300px;
+    width:400px;
 }
 
 #right-col-wrapper {
     float:right;
     padding:10px;
-    width:300px;
+    width:400px;
 }
 
 .profile-image {
@@ -24,4 +24,10 @@
 .user-counts {
     font-size:14px;
     text-align:center;
+}
+
+
+#left-col-wrapper .feed-bunk-content,
+#right-col-wrapper .feed-bunk-content{
+    width: 250px;
 }

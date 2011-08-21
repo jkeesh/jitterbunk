@@ -132,6 +132,7 @@ def user_search(request):
 
     result = []
     for user in users:
+        if user == request.user: continue
         try:
             profile = user.get_profile()
             result.append(

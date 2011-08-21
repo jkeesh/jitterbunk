@@ -15,19 +15,18 @@
 }
 
 .feed-bunk {
-    margin:10px 0px 10px 0px;
-    border-bottom:1px solid #ccc;
-    width:700px;
+    border-bottom:1px dashed #ccc;
+    padding: 10px;
 }
 
 .bunk-image {
-    width:72px;
-    height:72px;
+    width:40px;
+    height:40px;
+    margin-right: 15px;
 }
 
 .feed-bunk-content {
-    margin:20px 0px 0px 20px;
-    font:30px helvetica;
+    font: 15px helvetica;
 }
 
 a.feed-name {
