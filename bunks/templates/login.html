@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 
-{% block javascripts %}
-
-{% endblock %}
-
-{% block stylesheets %}
-{% endblock %}
 
 {% block content %}
-Login Page!
+<style type='text/css'>
+html{
+    background: url(http://i.bnet.com/blogs/skylinefk4.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+</style>
+
+<div id="fb-button">
 <fb:login-button autologoutlink="true" perms="offline_access"></fb:login-button>
+</div>
+
+<img id="home-image" src="/static/images/logo.png" />
+
+
+
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
