@@ -1,5 +1,11 @@
 # Django settings for jitterbunk project.
 import getpass
+import os
+import sys
+
+# setup python path for this instance
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, PROJECT_ROOT)
 
 local_users = ["eric", "jkeesh", "zgalant", 'laney']
 if getpass.getuser() in local_users:
@@ -89,6 +95,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'bunks/templates'),
 )
 
 INSTALLED_APPS = (
@@ -99,4 +106,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
+    'jitterbunk.bunks',
 )
+
+if DEV:
+    FACEBOOK_API_KEY = '139763809448265'
+    FACEBOOK_SECRET_KEY = '67fe1736ef9d3db5f67342981de733eb'
+else:
+    FACEBOOK_API_KEY = '203842356342689'
+    FACEBOOK_SECRET_KEY = 'e406bcb6d5eae2f53f4f1b33db522503'
