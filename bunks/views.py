@@ -2,12 +2,12 @@ import facebook
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.utils import simplejson
 from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import login as django_login, authenticate
 from bunks.models import Bunk
-from django.contrib.auth.models import User
 
 def _create_user_profile(cookie):
     """
@@ -98,9 +98,10 @@ def profile(request, id):
 def user_search(request):
     name = request.GET['q']
     
-    the_user = User.objects.filter(first_name=name)
+    the_users = UserProfile.objects.all()
+
+    obj = {'the_user':name, 'pid':4}
     
-    obj = {'the_user':the_user, 'pid':4}
     return HttpResponse(simplejson.dumps(obj), mimetype="application/x-javascript")
     
     

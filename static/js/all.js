@@ -60,7 +60,6 @@ $(document).ready(function() {
     //     };
     
     $(input_box).live('keypress', function(e) {
-        // console.log(e.which);
         if(e.keyCode==13){
             e.preventDefault();
             $.ajax({
@@ -69,9 +68,10 @@ $(document).ready(function() {
                 data: {
                     "q":$(input_box).val(),
                 },
+                dataType: 'JSON',
                 success: function(result) {
-                    // console.log(result);
-                    //document.window.location = "/profile/" + result.pid;
+                    console.log(result);
+                    //window.location = "/profile/" + result.pid;
                 },
                 error: function(jqXHR, textStatus, error) {
                 }
