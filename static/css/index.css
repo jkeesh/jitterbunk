@@ -1,4 +1,8 @@
+#top-image-container {
+    width:900px;
+}
+
 #top-image {
-    margin:auto;
+    margin:0px auto;
     width:900px;
 }
