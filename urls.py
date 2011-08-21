@@ -21,7 +21,8 @@ urlpatterns = patterns('',
 
 # Jitterbunk URL's
 urlpatterns += patterns('jitterbunk.bunks.views',
-    (r'^/?$', 'index'),
+    (r'^/?$', 'login'),
+    (r'^index/?$', 'index'),
 )
 
 # static content served only in debug
