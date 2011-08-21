@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block stylesheets %}
+<link type="text/css" href="/static/css/profile.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -12,12 +13,18 @@
 </div>
 
 <div id="left-col-wrapper">
-    BLA
+    <div class="title">Bunked</div>
+    <div id="bunked-list">
+            {% include "feed.html" %}
+    </div>
 </div>
-{% endblock %}
 
-{% block right-column %}
 <div id="right-col-wrapper">
-    BLABLA
+    <div class="title">Bunked By</div>
+    <div id="bunked-by-list">
+            {% include "feed.html" %}
+    </div>
 </div>
+
+<div class="clearfix"></div>
 {% endblock %}
