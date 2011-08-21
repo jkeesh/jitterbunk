@@ -6,7 +6,9 @@ from django.utils import simplejson
 from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import login as django_login, authenticate
+from django.contrib.auth import login as django_login
+from django.contrib.auth import authenticate
+
 from bunks.models import Bunk
 
 def _create_user_profile(cookie):
