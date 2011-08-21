@@ -99,9 +99,9 @@ def profile(request, id):
     user = User.objects.get(pk=id)
     viewer = request.user
 
-    user_profile = user.get_profile();
-    bunks_sent = user_profile.get_bunks(Bunk.SENT);
-    bunks_received = user_profile.get_bunks(Bunk.RECEIVED);
+    user_profile = user.get_profile()
+    bunks_sent = user_profile.get_bunks(Bunk.SENT)
+    bunks_received = user_profile.get_bunks(Bunk.RECEIVED)
 
     return render_to_response("profile.html", {
         "viewer": request.user,
