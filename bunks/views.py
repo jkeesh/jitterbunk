@@ -120,8 +120,6 @@ def profile(request, id):
         "user": user,
         "bunks_sent": bunks_sent,
         "bunks_received": bunks_received,
-        "bunks_sent_count": len(bunks_sent),
-        "bunks_received_count": len(bunks_received),
         },
         context_instance=RequestContext(request)
     )

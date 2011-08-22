@@ -43,13 +43,13 @@ class UserProfile(models.Model):
         
     def get_bunks(self, filter=Bunk.ALL):
         if filter == Bunk.ALL:
-            sent = Bunk.objects.filter(bunker=self.user)
-            received = Bunk.objects.filter(bunkee=self.user)
+            sent = Bunk.objects.filter(bunker=self.user).order_by('-created_at')
+            received = Bunk.objects.filter(bunkee=self.user).order_by('-created_at')
             return chain(sent, received)
         elif filter == Bunk.SENT:
-            return Bunk.objects.filter(bunker=self.user)
+            return Bunk.objects.filter(bunker=self.user).order_by('-created_at')
         elif filter == Bunk.RECEIVED:
-            return Bunk.objects.filter(bunkee=self.user)
+            return Bunk.objects.filter(bunkee=self.user).order_by('-created_at')
     
     def unseen_count(self):
         return len(Bunk.objects.filter(bunkee=self.user, seen=False))
