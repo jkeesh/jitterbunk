@@ -22,6 +22,8 @@
 
 .user-counts {
     font-size:14px;
+    float: left;
+    width: 300px;
 }
 
 .user-counts .count{
@@ -29,6 +31,10 @@
     display: inline-block;
     font-weight: bold;
     margin-top: 2px;
+}
+
+.user-box{
+    float: left;
 }
 
 
@@ -45,4 +51,8 @@
 
 #header-wrapper{
     margin-top: 10px;
+}
+
+#profile-bunk{
+    display: block;
 }
