@@ -93,7 +93,7 @@ def index(request):
     else:
         return bunk_login(request)
         
-    all_bunks = Bunk.objects.all().order_by('-created_at')
+    all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
     
     return render_to_response(
         "index.html", 
