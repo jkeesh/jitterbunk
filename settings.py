@@ -14,6 +14,7 @@ if getpass.getuser() in local_users:
 else:
     DEBUG = False
     DEV = False
+    print "In live mode"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/jitterbunk.com/static/'
