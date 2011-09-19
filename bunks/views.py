@@ -88,9 +88,14 @@ def index(request):
     """
     The main view for the site.
     """
+    print "in index"
+    
     if request.user.is_authenticated():
+        print "user authenticated"
         pass
+        
     else:
+        print "bunk login"
         return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
