@@ -1,15 +1,32 @@
 import facebook
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.utils import simplejson
 from django.conf import settings
 from bunks.models import UserProfile
 from django.contrib.auth.models import User
-from django.contrib.auth import login as django_login
+from django.contrib.auth import login as django_login, logout as django_logout
 from django.contrib.auth import authenticate
 from django.db.models import Q
+import base64
+import hmac
+import hashlib
+import urllib
+import cgi
 
+# Find a JSON parser
+try:
+    import json
+    _parse_json = lambda s: json.loads(s)
+except ImportError:
+    try:
+        import simplejson
+        _parse_json = lambda s: simplejson.loads(s)
+    except ImportError:
+        # For Google AppEngine
+        from django.utils import simplejson
+        _parse_json = lambda s: simplejson.loads(s)
 
 from bunks.models import Bunk
 
@@ -20,6 +37,12 @@ def about(request):
         context_instance = RequestContext(request)
     )
     
+def logout_view(request):
+    django_logout(request)
+    response =  redirect("/")
+    cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
+    response.delete_cookie(cookiename)
+    return response
 
 def json_response(obj):
     """
@@ -36,12 +59,28 @@ def create_bunk(request):
     return json_response({"status": "ok"})
     
 
-def _create_user_profile(cookie):
+def _create_user_profile(response):
     """
     Create the user account and profile.
     """
-    graph = facebook.GraphAPI(cookie["access_token"])
-    profile = graph.get_object("me")
+    args = dict(
+        code = response['code'],
+        client_id = settings.FACEBOOK_API_KEY,
+        client_secret = settings.FACEBOOK_SECRET_KEY,
+        redirect_uri = '',
+    )
+    
+    file = urllib.urlopen("https://graph.facebook.com/oauth/access_token?" + urllib.urlencode(args))
+    try:
+        token_response = file.read()
+    finally:
+        file.close()
+        
+    access_token = cgi.parse_qs(token_response)["access_token"][-1]
+        
+    profile = json.load(urllib.urlopen(
+        "https://graph.facebook.com/me?" +
+        urllib.urlencode(dict(access_token=access_token))))
     
     try:
         user = User.objects.get(username=profile['username'])
@@ -53,22 +92,64 @@ def _create_user_profile(cookie):
         user.last_name = profile['last_name']
         user.save()
     
-    up = UserProfile(user=user, fbid=cookie['uid'])
+    up = UserProfile(user=user, fbid=profile['id'])
     up.save()
     return user
+    
+    
+def urlsafe_b64decode(str):
+    """Perform Base 64 decoding for strings with missing padding."""
+
+    l = len(str)
+    pl = l % 4
+    return base64.urlsafe_b64decode(str.ljust(l+pl, "="))
+
+
+def parse_signed_request(signed_request, secret):
+    """
+    Parse signed_request given by Facebook (usually via POST),
+    decrypt with app secret.
+
+    Arguments:
+    signed_request -- Facebook's signed request given through POST
+    secret -- Application's app_secret required to decrpyt signed_request
+    """
+
+    if "." in signed_request:
+        esig, payload = signed_request.split(".")
+    else:
+        return {}
+
+    sig = urlsafe_b64decode(str(esig))
+    data = _parse_json(urlsafe_b64decode(str(payload)))
+
+    if not isinstance(data, dict):
+        raise SignedRequestError("Pyload is not a json string!")
+        return {}
+
+    if data["algorithm"].upper() == "HMAC-SHA256":
+        if hmac.new(secret, payload, hashlib.sha256).digest() == sig:
+            return data
+
+    else:
+        raise SignedRequestError("Not HMAC-SHA256 encrypted!")
+
+    return {}
 
 def bunk_login(request):
     """
     Display a login page to the user.
-    """
-    cookie = facebook.get_user_from_cookie(request.COOKIES,
-                        settings.FACEBOOK_API_KEY, settings.FACEBOOK_SECRET_KEY)
-    if cookie and not request.user.is_authenticated():
+    """    
+    cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
+    if cookiename in request.COOKIES:    
+        cookie = request.COOKIES["fbsr_" + settings.FACEBOOK_API_KEY]
+        response = parse_signed_request(cookie, settings.FACEBOOK_SECRET_KEY)
+        
         try:
-            up = UserProfile.objects.get(fbid=cookie['uid'])
+            up = UserProfile.objects.get(fbid=response['user_id'])
             user = up.user
         except UserProfile.DoesNotExist:
-            user = _create_user_profile(cookie)
+            user = _create_user_profile(response)
             
         user = authenticate(username=user.username, password=user.username)
         if user is not None:
@@ -91,11 +172,8 @@ def index(request):
     print "in index"
     
     if request.user.is_authenticated():
-        print "user authenticated"
-        pass
-        
+        pass        
     else:
-        print "bunk login"
         return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
@@ -105,6 +183,7 @@ def index(request):
         {
             "user":request.user,
             "all_bunks":all_bunks,
+            "facebook_app_id": settings.FACEBOOK_API_KEY
         },
         context_instance = RequestContext(request)
     )

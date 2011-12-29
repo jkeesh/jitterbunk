@@ -18,13 +18,10 @@ html{
 
 <img id="home-image" src="/static/images/logo.png" />
 
-
-
 <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
-    FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
-             xfbml: true});
+    FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true, oauth: true});
     FB.Event.subscribe('{% if request.user.is_authenticated %}auth.logout{% else %}auth.login{% endif %}', function(response) {
       window.location.reload();
     });

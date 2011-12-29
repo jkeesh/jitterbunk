@@ -38,10 +38,11 @@ $(document).ready(function() {
     
     var bunkee_id = null;
     var bunkee_name = null;
+
+    var input_box = $("#search-input");
     
-    if(window.location.pathname == "/"){
+    if(input_box.length > 0){
     
-        var input_box = $("#search-input");
     
     
         $.widget("custom.users_catcomplete", $.ui.autocomplete, {
