@@ -1,3 +1,4 @@
 *.pyc
 bunkdb
 secrets.py
+.DS_Store
