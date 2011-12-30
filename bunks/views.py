@@ -268,14 +268,12 @@ def profile(request, id):
     user_profile = profile_user.get_profile()
     bunks_sent = user_profile.get_bunks(Bunk.SENT)
     bunks_received = user_profile.get_bunks(Bunk.RECEIVED)
-    ratio = float(len(bunks_sent)) / len(bunks_received) if bunks_received else 'Inf'
-    ratio = round(ratio, 2)
+
     return render_to_response("profile.html", {
         "user": request.user,
         "profile_user": profile_user,
         "bunks_sent": bunks_sent,
-        "bunks_received": bunks_received,
-        'ratio': ratio
+        "bunks_received": bunks_received
         },
         context_instance=RequestContext(request)
     )
