@@ -247,13 +247,20 @@ def index(request):
         return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
+    
+    user_profile = request.user.get_profile()
+    bunks_sent = user_profile.get_bunks(Bunk.SENT)
+    bunks_received = user_profile.get_bunks(Bunk.RECEIVED)
+    ratio = float(len(bunks_sent)) / len(bunks_received) if bunks_received else 'Inf'
+    ratio = round(ratio, 2)
         
     return render_to_response(
         "index.html", 
         {
             "user":request.user,
             "all_bunks":all_bunks,
-            "facebook_app_id": settings.FACEBOOK_API_KEY
+            "facebook_app_id": settings.FACEBOOK_API_KEY,
+            'ratio': ratio
         },
         context_instance = RequestContext(request)
     )
@@ -268,8 +275,8 @@ def profile(request, id):
     user_profile = user.get_profile()
     bunks_sent = user_profile.get_bunks(Bunk.SENT)
     bunks_received = user_profile.get_bunks(Bunk.RECEIVED)
-    ratio = (float)(len(bunks_sent)) / len(bunks_received) if bunks_received else 'Inf'
-
+    ratio = float(len(bunks_sent)) / len(bunks_received) if bunks_received else 'Inf'
+    ratio = round(ratio, 2)
     return render_to_response("profile.html", {
         "viewer": request.user,
         "user": user,
