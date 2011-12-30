@@ -14,10 +14,12 @@
 		{% block stylesheets %}
 		{% endblock %}
 	</head>
-	<body>
+	<body>		
+		
 		{% block body %}
 		{% endblock %}
 		<div id="content">
+			{% include "header.html" %}
 
 			{# these two should be used for two column displays #}
 			{% block content %}

@@ -4,36 +4,6 @@
 
 {% block content %}
 
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true, oauth: true});
-
-    // FB.Event.subscribe('auth.login', function(response) {
-    //   window.location.reload();
-    // });
-    FB.Event.subscribe('auth.logout', function(response) {
-      window.location.href = '/logout';
-    });
-  };
-  (function() {
-    var e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-  }());
-</script>
-
-<div id="top-image-container">
-	<img id="top-image" src="/static/images/logo.png" />
-	<div id="top-links">
-		<a href="/profile/{{user.id}}" id="name-link">{{user.first_name|lower}}</a>
-		<a href="/about" id="about-link">about</a>
-		<fb:login-button autologoutlink="true"></fb:login-button>
-		
-	</div>
-</div>
 
 <div id="search-wrapper">
 	<input type="text" id="search-input" placeholder="Search for someone to bunk" />

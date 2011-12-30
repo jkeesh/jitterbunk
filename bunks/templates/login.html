@@ -1,7 +1,21 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Jitterbunk</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+    	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/static/js/all.js"></script>
+		<script type="text/javascript" src="/static/js/index.js"></script>
+		<link type="text/css" href="/static/css/index.css" rel="stylesheet"/>
+		<link type="text/css" href="/static/css/profile.css" rel="stylesheet"/>
+        <link type="text/css" href="/static/css/base.css" rel="stylesheet"/>
+		<link type="text/css" href="/static/css/reset.css" rel="stylesheet"/>
+		<link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/base/jquery-ui.css" rel="stylesheet" />
+		{% block stylesheets %}
+		{% endblock %}
+	</head>
+	<body>
 
-
-{% block content %}
 <style type='text/css'>
 html{
     background: url(http://i.bnet.com/blogs/skylinefk4.jpg) no-repeat center center fixed;
@@ -18,6 +32,7 @@ a{
 	font-weight: bold;
 	position: fixed;
 	top: 66px;
+	left: 100px;
 	padding: 10px;
 	background: black;
 }
@@ -27,20 +42,5 @@ a{
 
 <img id="home-image" src="/static/images/logo.png" />
 
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true, oauth: true});
-    FB.Event.subscribe('{% if request.user.is_authenticated %}auth.logout{% else %}auth.login{% endif %}', function(response) {
-      window.location.reload();
-    });
-  };
-  (function() {
-    var e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-  }());
-</script>
-{% endblock %}
+</body>
+</html>

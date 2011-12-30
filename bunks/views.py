@@ -41,7 +41,7 @@ def logout_view(request):
     django_logout(request)
     response =  redirect("/")
     cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
-    # response.delete_cookie(cookiename)
+    response.delete_cookie(cookiename)
     return response
 
 def json_response(obj):
@@ -140,7 +140,9 @@ def parse_signed_request(signed_request, secret):
 def login_view(request):
     print "IN LOGIN VIEW"
     
+    
     if 'code' in request.GET:
+        print 'found code'
         token = get_access_token(request.GET['code'])
 
         profile = json.load(urllib.urlopen(
@@ -161,9 +163,16 @@ def login_view(request):
         up.save()
         
         user = authenticate(username=user.username, password=user.username)
+        
+        print 'user'
+        print user
         if user is not None:
             django_login(request, user)
+            
+            print 'is authenticated?'
+            print request.user.is_authenticated()
         
+    print 'redirecting /'
     return redirect('/')
     
 # Redirect URLs must match in these stages
@@ -213,9 +222,6 @@ def bunk_login(request):
         
     args = dict(client_id=settings.FACEBOOK_API_KEY, redirect_uri=settings.REDIRECT_URL, response_type='code')
     url = 'https://www.facebook.com/dialog/oauth/?' + urllib.urlencode(args)
-    # url = "https://graph.facebook.com/oauth/authorize?" + urllib.urlencode(args)
-    
-    # print url
     
     return render_to_response(
         "login.html",
@@ -234,8 +240,10 @@ def index(request):
     print "in index"
     
     if request.user.is_authenticated():
+        print 'was authenticated'
         pass        
     else:
+        print 'logging in'
         return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
@@ -260,12 +268,14 @@ def profile(request, id):
     user_profile = user.get_profile()
     bunks_sent = user_profile.get_bunks(Bunk.SENT)
     bunks_received = user_profile.get_bunks(Bunk.RECEIVED)
+    ratio = (float)(len(bunks_sent)) / len(bunks_received) if bunks_received else 'Inf'
 
     return render_to_response("profile.html", {
         "viewer": request.user,
         "user": user,
         "bunks_sent": bunks_sent,
         "bunks_received": bunks_received,
+        'ratio': ratio
         },
         context_instance=RequestContext(request)
     )

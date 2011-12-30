@@ -2,6 +2,7 @@
 
 {% block content %}
 <div id="header-wrapper">
+	
     <img class="profile-image" src="http://graph.facebook.com/{{user.get_profile.fbid}}/picture?type=normal" />
 
 	<div class="user-box">
@@ -12,6 +13,8 @@
 	        <span class='count'>{{bunks_sent|length}}</span> Bunks Sent
 			<br /> 
 			<span class='count'>{{bunks_received|length}}</span> Bunks Received 
+			<br /> 
+			<span class='count'>{{ratio}}</span>
 	    </div>
 	</div>
 

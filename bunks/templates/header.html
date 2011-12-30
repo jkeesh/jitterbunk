@@ -1,0 +1,9 @@
+<div id="top-image-container">
+	<a href="/"><img id="top-image" src="/static/images/logo.png" /></a>
+	<div id="top-links">
+		<a href="/profile/{{user.id}}" id="name-link">{{user.first_name|lower}}</a>
+		<span class='count'>{{ratio}}</span>
+		<a href="/about" id="about-link">about</a>
+		<a href="/logout">logout</a>	
+	</div>
+</div>
