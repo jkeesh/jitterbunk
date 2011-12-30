@@ -9,9 +9,9 @@
   window.fbAsyncInit = function() {
     FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true, oauth: true});
 
-    FB.Event.subscribe('auth.login', function(response) {
-      window.location.reload();
-    });
+    // FB.Event.subscribe('auth.login', function(response) {
+    //   window.location.reload();
+    // });
     FB.Event.subscribe('auth.logout', function(response) {
       window.location.href = '/logout';
     });

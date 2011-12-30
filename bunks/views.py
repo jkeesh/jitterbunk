@@ -41,7 +41,7 @@ def logout_view(request):
     django_logout(request)
     response =  redirect("/")
     cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
-    response.delete_cookie(cookiename)
+    # response.delete_cookie(cookiename)
     return response
 
 def json_response(obj):
@@ -136,30 +136,92 @@ def parse_signed_request(signed_request, secret):
 
     return {}
 
+
+def login_view(request):
+    print "IN LOGIN VIEW"
+    
+    if 'code' in request.GET:
+        token = get_access_token(request.GET['code'])
+
+        profile = json.load(urllib.urlopen(
+            "https://graph.facebook.com/me?" +
+            urllib.urlencode(dict(access_token=token))))
+
+        try:
+            user = User.objects.get(username=profile['username'])
+        except User.DoesNotExist:
+            user = User.objects.create_user(profile['username'],
+                        email='test@example.com',
+                        password=profile['username'])
+            user.first_name = profile['first_name']
+            user.last_name = profile['last_name']
+            user.save()
+
+        up = UserProfile(user=user, fbid=profile['id'])
+        up.save()
+        
+        user = authenticate(username=user.username, password=user.username)
+        if user is not None:
+            django_login(request, user)
+        
+    return redirect('/')
+    
+# Redirect URLs must match in these stages
+def get_access_token(code):
+    args = dict(
+        code = code,
+        client_id = settings.FACEBOOK_API_KEY,
+        client_secret = settings.FACEBOOK_SECRET_KEY,
+        redirect_uri = settings.REDIRECT_URL,
+    )
+    
+    file = urllib.urlopen("https://graph.facebook.com/oauth/access_token?" + urllib.urlencode(args))
+    try:
+        token_response = file.read()
+    finally:
+        file.close()
+        
+    access_token = cgi.parse_qs(token_response)["access_token"][-1]
+    return access_token
+
 def bunk_login(request):
     """
     Display a login page to the user.
     """    
-    cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
-    if cookiename in request.COOKIES:    
-        cookie = request.COOKIES["fbsr_" + settings.FACEBOOK_API_KEY]
-        response = parse_signed_request(cookie, settings.FACEBOOK_SECRET_KEY)
+    print "IN BUNK LOGIN"
+    print request
+    
+
+    
+   # print request
+    
+    # cookiename = "fbsr_" + settings.FACEBOOK_API_KEY
+    # if cookiename in request.COOKIES:    
+    #     cookie = request.COOKIES["fbsr_" + settings.FACEBOOK_API_KEY]
+    #     response = parse_signed_request(cookie, settings.FACEBOOK_SECRET_KEY)
+    #     
+    #     try:
+    #         up = UserProfile.objects.get(fbid=response['user_id'])
+    #         user = up.user
+    #     except UserProfile.DoesNotExist:
+    #         user = _create_user_profile(response)
+    #         
+    #     user = authenticate(username=user.username, password=user.username)
+    #     if user is not None:
+    #         django_login(request, user)
+    #         return HttpResponseRedirect("/")
         
-        try:
-            up = UserProfile.objects.get(fbid=response['user_id'])
-            user = up.user
-        except UserProfile.DoesNotExist:
-            user = _create_user_profile(response)
-            
-        user = authenticate(username=user.username, password=user.username)
-        if user is not None:
-            django_login(request, user)
-            return HttpResponseRedirect("/")
-            
+    args = dict(client_id=settings.FACEBOOK_API_KEY, redirect_uri=settings.REDIRECT_URL, response_type='code')
+    url = 'https://www.facebook.com/dialog/oauth/?' + urllib.urlencode(args)
+    # url = "https://graph.facebook.com/oauth/authorize?" + urllib.urlencode(args)
+    
+    # print url
+    
     return render_to_response(
         "login.html",
         {
-            "facebook_app_id": settings.FACEBOOK_API_KEY
+            "facebook_app_id": settings.FACEBOOK_API_KEY,
+            'url': url
         },
         context_instance = RequestContext(request)
     )
@@ -177,7 +239,7 @@ def index(request):
         return bunk_login(request)
         
     all_bunks = Bunk.objects.all().order_by('-created_at')[:100]
-    
+        
     return render_to_response(
         "index.html", 
         {

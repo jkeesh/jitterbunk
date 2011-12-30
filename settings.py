@@ -137,6 +137,9 @@ INSTALLED_APPS = (
 if DEV:
     FACEBOOK_API_KEY = secrets.LOCAL['api_key']
     FACEBOOK_SECRET_KEY = secrets.LOCAL['secret']
+    REDIRECT_URL = 'http://localhost:8000/login/'
 else:
     FACEBOOK_API_KEY = secrets.PROD['api_key']
     FACEBOOK_SECRET_KEY = secrets.PROD['secret']
+    REDIRECT_URL = 'http://jitterbunk.com/login/'
+    

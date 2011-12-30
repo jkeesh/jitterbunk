@@ -113,13 +113,15 @@ $(document).ready(function() {
         });
     }
     
-    $('#profile-bunk').click(function(){
+    $('#profile-bunk').click(function(e){
+       e.preventDefault();
        D.log($('#user-name').html());
        bunk($(this).attr('data-id'), $.trim($('#user-name').html()));
     });
     
     
-    $('#bunk-button').click(function(){
+    $('#bunk-button').click(function(e){
+        e.preventDefault();     
         if(!bunkee_id) return;
         bunk(bunkee_id, bunkee_name);
     });
