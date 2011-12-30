@@ -3,11 +3,11 @@
 {% block content %}
 <div id="header-wrapper">
 	
-    <img class="profile-image" src="http://graph.facebook.com/{{user.get_profile.fbid}}/picture?type=normal" />
+    <img class="profile-image" src="http://graph.facebook.com/{{profile_user.get_profile.fbid}}/picture?type=normal" />
 
 	<div class="user-box">
 	    <div id="user-name">
-	        {{user.first_name}} {{user.last_name}}
+	        {{profile_user.first_name}} {{profile_user.last_name}}
 	    </div>
 	    <div class="user-counts">
 	        <span class='count'>{{bunks_sent|length}}</span> Bunks Sent

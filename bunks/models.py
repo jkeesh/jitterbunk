@@ -33,6 +33,13 @@ class UserProfile(models.Model):
     fbid = models.BigIntegerField(default=0, primary_key=True)
     friends = models.ManyToManyField("self")
     
+    def get_ratio(self):
+        sent_count = self.get_bunks(Bunk.SENT).count()
+        received_count = self.get_bunks(Bunk.RECEIVED).count()
+        print sent_count
+        print received_count
+        return 1
+    
     def bunk(self, other):
         if self != other:
             bunk = Bunk(bunker=self.user, bunkee=other)
