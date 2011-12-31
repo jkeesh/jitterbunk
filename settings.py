@@ -3,12 +3,13 @@ import getpass
 import os
 import sys
 import secrets
+import platform
 
 # setup python path for this instance
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 
-local_users = ["eric", "jkeesh", "zgalant", 'laney']
-if getpass.getuser() in local_users:
+if platform.node() != "madness":
+    print "In debug mode"
     DEBUG = True
     DEV = True
 else:
