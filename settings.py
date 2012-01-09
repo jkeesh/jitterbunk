@@ -13,7 +13,7 @@ if platform.node() != "madness":
     DEBUG = True
     DEV = True
 else:
-    DEBUG = False
+    DEBUG = True
     DEV = False
     print "In live mode"
 
