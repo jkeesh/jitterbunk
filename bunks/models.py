@@ -36,6 +36,8 @@ class UserProfile(models.Model):
     def get_ratio(self):
         sent_count = self.get_bunks(Bunk.SENT).count()
         received_count = self.get_bunks(Bunk.RECEIVED).count()
+        if received_count == 0:
+            return 0 if sent_count == 0 else 'Inf'
         ratio = float(sent_count) / received_count
         return round(ratio, 2)
     
